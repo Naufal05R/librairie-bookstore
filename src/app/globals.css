@@ -1,24 +1,71 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+
+  --color-primary: #ff9a9a;
+  --color-background: #fef9e7;
+  --color-foreground: #4a4a4a;
+  --color-muted: #b0b0b0;
+
+  --color-soft-peach: #ff9a9a;
+  --color-creamy-white: #ffffff;
+  --color-muted-blue: #a0c4ff;
+  --color-warm-beige: #f0e4cc;
+
+  --color-deep-navy: #2e4053;
+  --color-rich-gray: #7f8c8d;
+  --color-vibrant-orange: #ff9900;
+  --color-dark-wood: #452b1f;
+
+  --color-warm-gray: #f7f4f5;
+  --color-pure-white: #ffffff;
+  --color-soft-green: #8bc34a;
+  --color-light-beige: #f5deb3;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fef9e7;
+  --foreground: #4a4a4a;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1c1c1c;
+    --foreground: #eaeaea;
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply font-body;
+}
+
+@layer components {
+  .glass {
+    @apply backdrop-blur-md bg-white/10 dark:bg-black/10;
+  }
+}
+
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-creamy-white dark:bg-rich-gray;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted dark:bg-vibrant-orange rounded-full;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
