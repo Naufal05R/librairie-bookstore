@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { Facebook, Twitter, Instagram, Mail, Send } from 'lucide-react';
+import { useState } from "react";
+import Link from "next/link";
+import { Facebook, Twitter, Instagram, Mail, Send } from "lucide-react";
 
 export default function Footer() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Newsletter signup:', email);
-    setEmail('');
+    console.log("Newsletter signup:", email);
+    setEmail("");
   };
 
   const currentYear = new Date().getFullYear();
@@ -24,7 +24,8 @@ export default function Footer() {
               Librairie
             </h3>
             <p className="text-muted/70 dark:text-vibrant-orange/70 mb-4">
-              Your ultimate destination for digital reading. Discover, read, and enjoy books anywhere.
+              Your ultimate destination for digital reading. Discover, read, and
+              enjoy books anywhere.
             </p>
             <div className="flex gap-4">
               <a
