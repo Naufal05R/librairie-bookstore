@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Menu, X, Sun, Moon, Monitor } from "lucide-react";
 import Link from "next/link";
 import { useTheme } from "../provider/theme-provider";
+import { cn } from "@/utils";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,22 +18,24 @@ export default function Header() {
     light: Sun,
     dark: Moon,
     system: Monitor,
-  }[theme];
+  }[theme ?? "system"];
 
   return (
     <header className="sticky top-0 z-50 bg-sky-light/80 dark:bg-dark-surface/80 backdrop-blur-md border-b border-sky-base/10 dark:border-dark-accent/10">
       <div className="container mx-auto px-6 lg:px-12">
         <nav className="flex items-center justify-between h-16">
-          <Link
-            href="/"
-            className="text-2xl font-bold text-blue-dark dark:text-dark-text 
-                     hover:text-sky-base dark:hover:text-dark-accent 
-                     transition-all duration-300 transform hover:scale-105"
-          >
-            Librairie
-          </Link>
+          <div className="basis-1/2 md:basis-1/3 flex">
+            <Link
+              href="/"
+              className="text-2xl font-bold text-blue-dark dark:text-dark-text 
+            hover:text-sky-base dark:hover:text-dark-accent 
+            transition-all duration-300 transform hover:scale-105"
+            >
+              Librairie
+            </Link>
+          </div>
 
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:basis-1/3 md:flex items-center justify-center space-x-1">
             {["Home", "Categories", "About", "Contact"].map((item) => (
               <Link
                 key={item}
@@ -51,7 +54,7 @@ export default function Header() {
             ))}
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="basis-1/2 md:basis-1/3 flex items-center justify-end max-md:space-x-2">
             <div className="relative">
               <button
                 onClick={toggleThemeMenu}
@@ -60,9 +63,10 @@ export default function Header() {
                 aria-label="Toggle theme"
               >
                 <ThemeIcon
-                  className="w-5 h-5 text-blue-dark dark:text-dark-text 
-                                  hover:text-sky-base dark:hover:text-dark-accent 
-                                  transition-colors duration-300"
+                  className={cn(
+                    { invisible: !theme },
+                    "w-5 h-5 text-blue-dark dark:text-dark-text hover:text-sky-base dark:hover:text-dark-accent transition-colors duration-300"
+                  )}
                 />
               </button>
 
