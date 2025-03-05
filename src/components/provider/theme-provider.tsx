@@ -2,50 +2,36 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "system" | "dark" | "light";
+const THEME = ["system", "dark", "light"] as const;
+type Theme = (typeof THEME)[number];
 
 type ThemeProviderProps = {
   children: React.ReactNode;
 };
 
 type ThemeContextType = {
-  theme: Theme;
+  theme?: Theme;
   setTheme: (theme: Theme) => void;
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "system";
-    return (localStorage.getItem("theme") as Theme) || "system";
-  });
+  const [theme, setTheme] = useState<Theme>();
 
   useEffect(() => {
-    const root = document.documentElement;
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    if (document)
+      setTheme(
+        document.cookie.match(/theme=(light|dark|system)/)?.[1] as Theme
+      );
+  }, []);
 
-    function applyTheme() {
-      root.classList.remove("light", "dark");
-
-      if (theme === "system") {
-        root.classList.add(mediaQuery.matches ? "dark" : "light");
-      } else {
-        root.classList.add(theme);
-      }
+  useEffect(() => {
+    if (theme) {
+      document.cookie = `theme=${theme}; path=/; max-age=31536000;`;
+      document.documentElement.classList.remove(...THEME);
+      document.documentElement.classList.add(theme);
     }
-
-    applyTheme();
-    localStorage.setItem("theme", theme);
-
-    const handleChange = () => {
-      if (theme === "system") {
-        applyTheme();
-      }
-    };
-
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
   }, [theme]);
 
   return (
@@ -60,5 +46,6 @@ export function useTheme() {
   if (!context) {
     throw new Error("useTheme must be used within a ThemeProvider");
   }
+
   return context;
 }
