@@ -1,6 +1,5 @@
 @import "tailwindcss";
-
-@variant dark (&:where(.dark, .dark *));
+@config "../../tailwind.config.ts";
 
 @theme {
   /* Light Theme Colors */
@@ -10,7 +9,7 @@
   --color-blue-light: #dbeafe;
   --color-blue-base: #3b82f6;
   --color-blue-dark: #1d4ed8;
-  
+
   /* Dark Theme Colors */
   --color-dark-bg: #0f172a;
   --color-dark-surface: #1e293b;
@@ -19,7 +18,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(-6deg);
   }
   50% {
@@ -28,7 +28,8 @@
 }
 
 @keyframes float-delay-1 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(-12deg) scale(0.9);
   }
   50% {
@@ -37,7 +38,8 @@
 }
 
 @keyframes float-delay-2 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(6deg) scale(0.9);
   }
   50% {
